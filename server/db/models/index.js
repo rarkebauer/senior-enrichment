@@ -1,9 +1,10 @@
 'use strict';
 
-const db = require('../db'); //const db = require('../index');
+const db = require('../index');
 const Campus = require('./campuses');
 const Student = require('./students');
 
+Campus.hasMany(Student);
 Student.belongsTo(Campus);
 
 // Require all the models

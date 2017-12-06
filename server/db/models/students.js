@@ -1,4 +1,4 @@
-const db = require('../db'); //const db = require('../index');
+const db = require('../index');
 const Sequelize = require('sequelize');
 
 const Student = db.define('student', {

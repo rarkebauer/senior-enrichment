@@ -1,4 +1,4 @@
-const db = require('../db'); //const db = require('../index');
+const db = require('../index');
 const Sequelize = require('sequelize');
 
 const Campus = db.define('campus', {
@@ -7,7 +7,7 @@ const Campus = db.define('campus', {
     allowNull: false
   },
   imageUrl: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     defaultValue: Sequelize.UUIDV1
   },
   description: {
