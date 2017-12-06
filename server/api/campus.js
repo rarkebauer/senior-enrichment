@@ -1,12 +1,26 @@
 const router = require('express').Router();
 const Campus = require('../db/models/campuses')
+const Student = require('../db/models/students')
 
-// route at /api/campus
+// /api/campus/:campusId to get a single campus
+router.get('/:campusId', (req, res, next) => {
+  Campus.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then(foundCampus => {
+    res.json(foundCampus)
+  })
+})
+
+// route at /api/campus to get all campuses
 router.get('/', (req, res, next) => {
-  res.send('some other shit')
-});
+  Campus.findAll().then(campuses => {
+    res.json(campuses)
+  })
+})
 
-// post a new campus
+// post a new campus to /api/campus
 router.post('/', (req, res, next) => {
   Campus.create(req.body)
    .then(newCampus => {
@@ -14,6 +28,7 @@ router.post('/', (req, res, next) => {
    })
 })
 
+//delete campus by id
 router.delete('/:id', (req, res, next) => {
   Campus.findOne({
     where: {
@@ -27,6 +42,37 @@ router.delete('/:id', (req, res, next) => {
   })
 })
 
+//remove a student from a campus by studentId
+router.put('/:campusId/student/:studentId', (req, res, next) => {
+  Campus.findOne({
+    where: {
+      id: req.params.campusId
+    },
+    include: [{all: true}]
+  }).then(foundCampus => {
+    console.log(foundCampus)
+    //foundCampus.update(req.body)
+    foundCampus.findOne({
+      where: {
+        id: req.params.studentId
+      }
+    })
+    //find student by id and then update the student with req.body
+  })
+  .then(foundStudent => {
+    foundStudent.destroy();
+  })
+  .then(campus => {
+    const response = {
+          message: 'Updated successfully',
+          campus: campus
+        }
+    res.json(response)
+  })
+  .catch(next)
+})
+
+
 module.exports = router;
 
 /*
@@ -37,4 +83,9 @@ curl -H "Content-Type: application/json" -X DELETE http://localhost:1337/api/cam
 
 PUT ROUTE
 can edit a campus's info, including adding/removing a student to/from that campus
+curl -H "Content-Type: application/json" -X PUT -d '{"name":"Springfield A&M"}' http://localhost:1337/api/campus/2
+
+curl -H "Content-Type: application/json" -X PUT -d '{"name":"Springfield University"}' http://localhost:1337/api/campus/2
+
+curl -H "Content-Type: application/json" -X PUT -d '{"firstName":"Rachel","lastName":"b","email":"r@a.com","gpa":"4.0","campusId":"1"}' http://localhost:1337/api/campus/2
 */
