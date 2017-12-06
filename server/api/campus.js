@@ -15,7 +15,7 @@ router.get('/:campusId', (req, res, next) => {
 
 // route at /api/campus to get all campuses
 router.get('/', (req, res, next) => {
-  Campus.findAll().then(campuses => {
+  Campus.findAll({include: [Student]}).then(campuses => {
     res.json(campuses)
   })
 })
@@ -43,34 +43,40 @@ router.delete('/:id', (req, res, next) => {
 })
 
 //remove a student from a campus by studentId
-router.put('/:campusId/student/:studentId', (req, res, next) => {
-  Campus.findOne({
-    where: {
-      id: req.params.campusId
-    },
-    include: [{all: true}]
-  }).then(foundCampus => {
-    console.log(foundCampus)
-    //foundCampus.update(req.body)
-    foundCampus.findOne({
-      where: {
-        id: req.params.studentId
-      }
-    })
-    //find student by id and then update the student with req.body
-  })
-  .then(foundStudent => {
-    foundStudent.destroy();
-  })
-  .then(campus => {
-    const response = {
-          message: 'Updated successfully',
-          campus: campus
-        }
-    res.json(response)
-  })
-  .catch(next)
-})
+
+//!!!!!!!!!!!!! finish making this work!!!!!!!!!!
+
+// router.put('/:campusId/student/:studentId', (req, res, next) => {
+//   Campus.findOne({
+//     where: {
+//       id: req.params.campusId
+//     },
+//     include: [{all: true}] //or [Student]
+//   }).then(foundCampus => {
+//     console.log(foundCampus)
+//     //foundCampus.update(req.body)
+//     foundCampus.findOne({
+//       where: {
+//         id: req.params.studentId
+//       }
+//     })
+    ///console.log(Student.dataValues) or is it
+    //use update method from sequelize
+    //foundCampus.Student.dataValues
+//     //find student by id and then update the student with req.body
+//   })
+//   .then(foundStudent => {
+//     foundStudent.destroy();
+//   })
+//   .then(campus => {
+//     const response = {
+//           message: 'Updated successfully',
+//           campus: campus
+//         }
+//     res.json(response)
+//   })
+//   .catch(next)
+// })
 
 
 module.exports = router;
@@ -88,4 +94,6 @@ curl -H "Content-Type: application/json" -X PUT -d '{"name":"Springfield A&M"}' 
 curl -H "Content-Type: application/json" -X PUT -d '{"name":"Springfield University"}' http://localhost:1337/api/campus/2
 
 curl -H "Content-Type: application/json" -X PUT -d '{"firstName":"Rachel","lastName":"b","email":"r@a.com","gpa":"4.0","campusId":"1"}' http://localhost:1337/api/campus/2
+
+curl -H "Content-Type: application/json" -X PUT -d '{}' http://localhost:1337/api/campus/2/student/2
 */

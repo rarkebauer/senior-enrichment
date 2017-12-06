@@ -1,3 +1,5 @@
+//to seed run node server/seedDb.js
+
 var Promise = require('bluebird');
 var {
   db,

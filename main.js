@@ -1,6 +1,6 @@
 'use strict';
 
-const { db } = require('./server/db/models')
+const { db } = require('./server/db/models') //pull in from db/models/index because we also want to include all our models which are there
 const app = require('./server')
 const PORT = 1337;
 

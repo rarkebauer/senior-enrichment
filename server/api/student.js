@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Student = require('../db/models/students')
+const Campus = require('../db/models/campuses')
 
 // /api/student/:studentId to get a single student
 router.get('/:studentId', (req, res, next) => {
@@ -14,7 +15,7 @@ router.get('/:studentId', (req, res, next) => {
 
 // route at /api/student to get all students
 router.get('/', (req, res, next) => {
-  Student.findAll().then(students => {
+  Student.findAll({include: [Campus]}).then(students => {
     res.json(students)
   })
 })
