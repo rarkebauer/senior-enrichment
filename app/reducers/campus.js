@@ -27,7 +27,7 @@ export function fetchCampuses () {
 export default function reducer (state = [], action) {
   switch (action.type){
     case GET_CAMPUSES:
-      return action.campuses;
+    return Object.assign({}, state, {campuses: action.campuses})
     default:
       return state;
   }

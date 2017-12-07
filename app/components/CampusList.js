@@ -3,29 +3,39 @@ import store from '../store';
 import { connect } from 'react-redux';
 import { fetchCampuses } from '../reducers'
 
-// function matchStateToProps(state){
-//   console.log(state)
+
+// function mapDispatchToProps(dispatch){
+
 //   return {
-//     campuses: state.campuses
+//     fetch(){
+//       const campusesThunk = fetchCampuses();
+//       dispatch(campusesThunk)
+//     }
 //   }
 // }
 
-function matchDispatchToProps(dispatch){
-  const campusesThunk = fetchCampuses();
-  const campuses = dispatch(campusesThunk)
-  return {
-    campuses
-  }
-}
-
 function CampusList(props) {
-  console.log(props.campuses)
+  console.log('props are', props)
+  const campuses = props.campuses;
+  console.log('campuses are', campuses)
+  const campusArr = campuses.campuses
     return (
       <div>
+        {/* <ul>
+          { campusArr.map(campus => campus.name) }
+        </ul> */}
+        <button>See Campuses</button>
         <h3>I'm the campusList</h3>
       </div>
     )
 }
 
-const campusListContainer = connect(null, matchDispatchToProps)(CampusList)
+function mapStateToProps(state){
+  return {
+    campuses: state.campuses
+  }
+}
+
+
+const campusListContainer = connect(mapStateToProps)(CampusList)
 export default campusListContainer;
