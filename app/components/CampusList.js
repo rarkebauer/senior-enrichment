@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 function CampusList(props) {
   console.log('campusList props are', props)
   const campuses = props.campuses;
-  //console.log(typeof (campuses[0].id))
     return (
       <div>
         <h3>Campuses</h3>

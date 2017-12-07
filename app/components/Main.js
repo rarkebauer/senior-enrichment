@@ -4,6 +4,7 @@ import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom'
 import CampusList from './CampusList';
 import StudentList from './StudentList';
 import SingleCampus from './SingleCampus';
+import SingleStudent from './SingleStudent';
 import Home from './Home';
 import { connect } from 'react-redux';
 
@@ -16,7 +17,8 @@ function Main() {
             <Route exact path="/" component={Home} />
             <Route exact path="/campuses" component={CampusList} />
             <Route path="/campuses/:id" component={SingleCampus} />
-            <Route path="/students" component={StudentList} />
+            <Route exact path="/students" component={StudentList} />
+            <Route path="/students/:id" component={SingleStudent} />
             <Redirect to="/" />
           </Switch>
         </BrowserRouter>
@@ -24,5 +26,7 @@ function Main() {
       </div>
     )
 }
+
+//NEED TO USE WITH ROUTER TO UPDATE PAGE ON NESTED COMPONENT URL CHANGE
 
 export default Main;

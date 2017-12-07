@@ -11,7 +11,9 @@ function StudentList({students}) {
         <ul>
           { students.map(student => {
             return (
-             <li key={student.id}>{student.fullName}</li>
+             <li key={student.id}>
+             <Link to={`/students/${student.id}`}>{student.fullName}</Link>
+             </li>
             )
           })
         }
