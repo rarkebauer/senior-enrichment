@@ -4,15 +4,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function CampusList(props) {
-  console.log('campuses are', props.campuses)
+  console.log('campusList props are', props)
   const campuses = props.campuses;
+  //console.log(typeof (campuses[0].id))
     return (
       <div>
         <h3>Campuses</h3>
         <ul>
           { campuses.map(campus => {
             return (
-             <li key={campus.id}><Link to={`/campus/${campus.id}`}>{campus.name}</Link></li>
+             <li key={campus.id}>
+               <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
+             </li>
             )
           })
         }
@@ -22,13 +25,12 @@ function CampusList(props) {
     )
 }
 
-// function mapStateToProps(state){
-//   console.log('state is ', state)
-//   return {
-//     campuses: state.campuses
-//   }
-// }
+function mapStateToProps(state){
+  console.log('state is ', state)
+  return {
+    campuses: state.campuses
+  }
+}
 
-export default CampusList
-// const campusListContainer = connect(mapStateToProps)(CampusList)
-// export default campusListContainer;
+const campusListContainer = connect(mapStateToProps)(CampusList)
+export default campusListContainer;

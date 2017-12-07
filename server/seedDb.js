@@ -19,6 +19,17 @@ var campusData = {
  }
 ]}
 
+const  campuses = [
+  {
+    name: 'Mars University',
+    description: 'The Planet Express crews latest mission is to deliver a crate to Professor Farnsworths office at Mars University. While touring the campus, Bender comes across a chapter of his old fraternity, Epsilon Rho Rho.'
+ },
+ {
+   name: 'Springfield University',
+   description: 'Springfield University was founded in 1952 and lacks a Latin motto. Sadgasm\'s first concert was at Springfield University.'
+ }
+]
+
 var data = {
   student: [
     {
@@ -56,11 +67,12 @@ db
  .sync({force: true})
  .then(function() {
   console.log('Dropped old data, now inserting data');
-   return Promise.map(Object.keys(campusData), function(campus) {
-    return Promise.map(campusData[campus], function(item) {
-      return db.model(campus).create(item);
-    });
-   })
+  return Promise.all(campuses.map(campus => Campus.create(campus)))
+  // return Promise.map(Object.keys(campusData), function(campus) {
+  //   return Promise.map(campusData[campus], function(item) {
+  //     return db.model(campus).create(item);
+  //   });
+  //  })
  })
  .then(function() {
    return Promise.map(Object.keys(data), function(name) {

@@ -7,15 +7,14 @@ import SingleCampus from './SingleCampus';
 import Home from './Home';
 import { connect } from 'react-redux';
 
-function Main(props) {
-  console.log('props on main are', props)
+function Main() {
     return (
       <div>
         <main>
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/campuses" component={CampusList} />
+            <Route exact path="/campuses" component={CampusList} />
             <Route path="/campuses/:id" component={SingleCampus} />
             <Route path="/students" component={StudentList} />
             <Redirect to="/" />
@@ -26,16 +25,4 @@ function Main(props) {
     )
 }
 
-function mapStateToProps(state){
-  console.log('state is ', state)
-  return {
-    campuses: state.campuses,
-    students: state.students
-  }
-}
-
-
-const MainContainer = connect(mapStateToProps)(Main)
-export default MainContainer;
-
-//export default Main;
+export default Main;
