@@ -2,23 +2,23 @@ import axios from 'axios';
 
 //ACTION TYPES
 
-const GET_CAMPUSES = 'GET_CAMPUSES';
+const GET_STUDENTS = 'GET_STUDENTS';
 
 //ACTION CREATORS
 
-export function getCampuses (campuses) {
-  const action = { type: GET_CAMPUSES, campuses };
+export function getStudents (students) {
+  const action = { type: GET_STUDENTS, students };
   return action;
 }
 
 //THUNK CREATORS
 
-export function fetchCampuses () {
+export function fetchStudents () {
   return function thunk(dispatch) {
-    return axios.get('/api/campus')
+    return axios.get('/api/student')
       .then(res => res.data)
-      .then(campuses => {
-        const action = getCampuses(campuses);
+      .then(students => {
+        const action = getStudents(students);
         dispatch(action);
       })
   }
@@ -26,8 +26,8 @@ export function fetchCampuses () {
 
 export default function reducer (state = [], action) {
   switch (action.type){
-    case GET_CAMPUSES:
-    return action.campuses
+    case GET_STUDENTS:
+    return action.students
     default:
       return state;
   }

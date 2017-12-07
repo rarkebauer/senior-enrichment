@@ -1,41 +1,34 @@
 import React from 'react';
 import store from '../store';
 import { connect } from 'react-redux';
-import { fetchCampuses } from '../reducers'
-
-
-// function mapDispatchToProps(dispatch){
-
-//   return {
-//     fetch(){
-//       const campusesThunk = fetchCampuses();
-//       dispatch(campusesThunk)
-//     }
-//   }
-// }
+import { Link } from 'react-router-dom';
 
 function CampusList(props) {
-  console.log('props are', props)
+  console.log('campuses are', props.campuses)
   const campuses = props.campuses;
-  console.log('campuses are', campuses)
-  const campusArr = campuses.campuses
     return (
       <div>
-        {/* <ul>
-          { campusArr.map(campus => campus.name) }
-        </ul> */}
-        <button>See Campuses</button>
-        <h3>I'm the campusList</h3>
+        <h3>Campuses</h3>
+        <ul>
+          { campuses.map(campus => {
+            return (
+             <li key={campus.id}><Link to={`/campus/${campus.id}`}>{campus.name}</Link></li>
+            )
+          })
+        }
+        </ul>
+        <div><Link to="/">Go Home</Link></div>
       </div>
     )
 }
 
-function mapStateToProps(state){
-  return {
-    campuses: state.campuses
-  }
-}
+// function mapStateToProps(state){
+//   console.log('state is ', state)
+//   return {
+//     campuses: state.campuses
+//   }
+// }
 
-
-const campusListContainer = connect(mapStateToProps)(CampusList)
-export default campusListContainer;
+export default CampusList
+// const campusListContainer = connect(mapStateToProps)(CampusList)
+// export default campusListContainer;

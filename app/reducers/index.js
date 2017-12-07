@@ -2,14 +2,18 @@
 import { combineReducers } from 'redux';
 
 import campuses from './campus';
+import students from './student'
 
 
 const combinedReducer = combineReducers({
-  campuses
+  campuses,
+  students
 })
 
-
 export default combinedReducer;
+
+export * from './campus';
+export * from './student';
 
 // import { combineReducers } from 'redux'
 
@@ -22,5 +26,3 @@ export default combinedReducer;
 // };
 
 // export default rootReducer
-
-export * from './campus';
