@@ -10,19 +10,33 @@ function CampusList(props) {
     return (
       <div>
         <h3>Campuses</h3>
-        <ul>
+        {/* <ul>
           { campuses.map(campus => {
             return (
              <li key={campus.id}>
                <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
-              <button onClick={props.deleteHandler} id={campus.id} key={campus.id}>Delete this campus</button>
+              <button onClick={props.deleteHandler} id={campus.id} key={campus.id} className="btn btn-danger">Delete this</button>
              </li>
             )
           })
         }
-        </ul>
-        <div><Link to="/new-campus">Create a new campus</Link></div>
-        <div><Link to="/">Go Home</Link></div>
+        </ul> */}
+        <tbody>
+          { campuses.map(campus => {
+            return (
+            <tr key={campus.id}>
+             <td>
+               <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
+             </td>
+             <td><button onClick={props.deleteHandler} id={campus.id} key={campus.id} className="btn btn-danger">x</button>
+            </td>
+            </tr>
+            )
+          })
+        }
+        </tbody>
+        <button className="btn btn-success"><Link to="/new-campus">Create a new campus</Link></button><br />
+        <button className="btn btn-warning"><Link to="/">Go Home</Link></button>
       </div>
     )
 }
