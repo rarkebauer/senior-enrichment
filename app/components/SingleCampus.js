@@ -15,7 +15,6 @@ function SingleCampus(props) {
   console.log('campusId is', campusId)
     return (
       <div>
-        {/* <h2>{campuses[campusId - 1].name}</h2> */}
         <h2>{campus[0].name}</h2>
         <p>{campus[0].description}</p>
         <h3>Students</h3>

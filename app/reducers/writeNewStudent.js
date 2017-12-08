@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 //ACTION TYPES
 
 const WRITE_STUDENT_FIRST = 'WRITE_STUDENT_FIRST';

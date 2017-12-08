@@ -8,9 +8,6 @@ const campus = require('./campus')
 	// I know this because we automatically send index.html for all requests that don't make sense in our backend.
 	// Ideally you would have something to handle this, so if you have time try that out!
 
-	// apiRouter.get('/students', function(req, res, next) {
-	// 	res.send('some shit')
-	// });
 apiRouter.use('/student', student);
 apiRouter.use('/campus', campus);
 
