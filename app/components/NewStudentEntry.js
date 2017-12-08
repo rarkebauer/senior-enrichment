@@ -1,33 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import store, { writeStudentFirst, writeStudentLast, writeStudentEmail, writeStudentGpa, writeStudentCampus, postStudent } from '../reducers';
 
 
 function NewCampusEntry (props) {
+  console.log('props on newstudententry are', props)
+  const campuses = props.campuses;
   return (
+  <div>
     <form onSubmit={props.submitHandler}>
     <div className="form-group">
       <label htmlFor="firstName">First Name</label>
-      <input type="text" className="form-control" placeholder="Enter first name" value={props.firstNameEntry} onChange={props.handleFirstChange} />
+      <input type="text" className="form-control" placeholder="Enter first name" value={props.firstNameEntry} onChange={props.handleFirstChange} name="first" />
     </div>
     <div className="form-group">
       <label htmlFor="lastName">Last Name</label>
-      <input type="text" className="form-control" placeholder="Enter Last name" value={props.lastNameEntry} onChange={props.handleLastChange} />
+      <input type="text" className="form-control" placeholder="Enter Last name" value={props.lastNameEntry} onChange={props.handleLastChange} name="last" />
     </div>
     <div className="form-group">
       <label htmlFor="email">Email</label>
-      <input type="text" className="form-control" placeholder="Enter email" value={props.emailEntry} onChange={props.handleEmailChange} />
+      <input type="text" className="form-control" placeholder="Enter email" value={props.emailEntry} onChange={props.handleEmailChange} name="email" />
     </div>
     <div className="form-group">
       <label htmlFor="gpa">GPA</label>
-      <input type="text" className="form-control" placeholder="Enter GPA" value={props.gpaEntry} onChange={props.handleGpaChange} />
+      <input type="text" className="form-control" placeholder="Enter GPA" value={props.gpaEntry} onChange={props.handleGpaChange} name="gpa" />
     </div>
     <div className="form-group">
-      <label htmlFor="campus">Campus</label>
-      <input type="text" className="form-control" placeholder="Enter campus" value={props.campusEntry} onChange={props.handleCampusChange} />
-    </div>
-    <button type="submit" className="btn btn-primary">Submit</button>
-  </form>
+      <label htmlFor="campus">Campus list:</label>
+        <select type="text" className="form-control" value={props.campusEntry} onChange={props.handleCampusChange} name="campusId" >
+          { campuses.map(campus => {
+            return (
+            <option key={campus.id} value={campus.id}>
+              {campus.name}
+            </option>
+            )
+          })
+          }
+        </select>
+      </div>
+      <button type="submit" className="btn btn-primary">Submit</button>
+    </form>
+    <div><Link to="/students">Go To Student List</Link></div>
+    <div><Link to="/">Go Home</Link></div>
+  </div>
   );
 }
 
@@ -37,7 +53,8 @@ function mapStateToProps(state, ownProps) {
     lastNameEntry: state.lastNameEntry,
     emailEntry: state.emailEntry,
     gpaEntry: state.gpaEntry,
-    campusEntry: state.campusEntry
+    campusEntry: state.campusEntry,
+    campuses: state.campuses
   }
 }
 
@@ -67,15 +84,19 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     handleCampusChange(event) {
       console.log(event.target.value)
-      const action = writeStudentCampus({campus: event.target.value});
+      const action = writeStudentCampus({campusId: event.target.value});
       dispatch(action);
     },
     submitHandler(event) {
       event.preventDefault();
-      const name = event.target.campusName.value
-      const description = event.target.campusDescription.value
-      const action = postStudent(name, description, ownProps.history);
+      const first = event.target.first.value;
+      const last = event.target.last.value;
+      const email = event.target.email.value;
+      const gpa = event.target.gpa.value;
+      const campusId = Number(event.target.campusId.value);
+      const action = postStudent(first, last, email, gpa, campusId, ownProps.history);
       dispatch(action);
+      dispatch(writeStudentFirst({first: ''})) //???????????????? why is it not clearing
     }
   }
 }

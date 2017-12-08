@@ -1,5 +1,5 @@
 import React from 'react';
-import store from '../store';
+import store, { deleteCampus }  from '../store';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ function CampusList(props) {
             return (
              <li key={campus.id}>
                <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
+              <button onClick={props.deleteHandler} id={campus.id}>Delete this campus</button>
              </li>
             )
           })
@@ -32,5 +33,18 @@ function mapStateToProps(state){
   }
 }
 
-const campusListContainer = connect(mapStateToProps)(CampusList)
+function mapDispatchToProps(dispatch){
+  return {
+    deleteHandler(event) {
+      event.preventDefault();
+      console.log('in deleteHandler event.target.id', event.target.id)
+      const campusId = event.target.id;
+      console.log('campusId is', campusId)
+      const action = deleteCampus(campusId);
+      dispatch(action);
+    }
+  }
+}
+
+const campusListContainer = connect(mapStateToProps, mapDispatchToProps)(CampusList)
 export default campusListContainer;

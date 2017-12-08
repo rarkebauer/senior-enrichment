@@ -18,6 +18,7 @@ function StudentList({students}) {
           })
         }
         </ul>
+        <div><Link to="/new-student">Create a new student</Link></div>
         <div><Link to="/">Go Home</Link></div>
       </div>
     )

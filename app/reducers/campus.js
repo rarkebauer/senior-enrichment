@@ -43,6 +43,17 @@ export function postCampus(name, description, history) {
   }
 }
 
+export function deleteCampus(campusId) {
+  return function thunk (dispatch) {
+    return axios.remove(`/api/campus/${campusId}`)
+      .then(res => res.data)
+      .then(deletedCampus => {
+        console.log('deleted', deletedCampus)
+        history.push(`/campuses`)
+      })
+  }
+}
+
 export default function reducer (state = [], action) {
   switch (action.type){
     case GET_CAMPUSES:

@@ -9,7 +9,7 @@ function NewCampusEntry (props) {
       <div>
         <label htmlFor="name">Create a Campus</label>
         <input className="form-control" type="text" name="campusName" placeholder="Enter campus name" value={props.newCampusTitleEntry} onChange={props.handleTitleChange} />
-        <input className="form-control" type="text" name="campusDescription" placeholder="Enter campus description" value={props.newCampusDescriptionEntry} onChange={props.handleDescriptionChange} />
+        <input className="form-control" type="text" name="campusDescription" placeholder="Enter campus description" rows="5" value={props.newCampusDescriptionEntry} onChange={props.handleDescriptionChange} />
       </div>
       <div className="form-group">
         <button type="submit">Create Campus</button>

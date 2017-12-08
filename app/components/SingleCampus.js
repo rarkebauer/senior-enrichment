@@ -19,7 +19,7 @@ function SingleCampus(props) {
         <ul>
           {students.map((student) => {
             return (
-              <li key={student.id}>
+              <li key={student.id} value={props.campusId}>
                 <Link to={`/students/${student.id}`}>{student.fullName}</Link>
               </li>
              )

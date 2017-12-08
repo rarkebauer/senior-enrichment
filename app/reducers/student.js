@@ -30,16 +30,19 @@ export function fetchStudents () {
   }
 }
 
-export function postStudent(name, description, history) {
-  //something with args
-  const student = {name, description}
+export function postStudent(first, last, email, gpa, campusId, history) {
+  const student = {
+    firstName: first,
+    lastName: last,
+    email,
+    gpa,
+    campusId}
   return function thunk (dispatch) {
     return axios.post('/api/student', student)
       .then(res => res.data)
       .then(newStudent => {
         const action = getStudent(newStudent);
         dispatch(action);
-        history.push(`/students/${newStudent.id}`)
       });
   }
 }
