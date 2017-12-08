@@ -2,27 +2,18 @@
 import { combineReducers } from 'redux';
 
 import campuses from './campus';
-import students from './student'
-
+import students from './student';
+import writeNewCampus from './writeNewCampus';
 
 const combinedReducer = combineReducers({
   campuses,
-  students
+  students,
+  writeNewCampus
 })
 
 export default combinedReducer;
 
 export * from './campus';
 export * from './student';
+export * from './writeNewCampus';
 
-// import { combineReducers } from 'redux'
-
-// const initialState = {}
-
-// const rootReducer = function(state = initialState, action) {
-//   switch (action.type) {
-//     default: return state
-//   }
-// };
-
-// export default rootReducer

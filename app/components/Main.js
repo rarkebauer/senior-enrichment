@@ -5,6 +5,7 @@ import CampusList from './CampusList';
 import StudentList from './StudentList';
 import SingleCampus from './SingleCampus';
 import SingleStudent from './SingleStudent';
+import NewCampusEntry from './NewCampusEntry';
 import Home from './Home';
 import { connect } from 'react-redux';
 
@@ -19,6 +20,7 @@ function Main() {
             <Route path="/campuses/:id" component={SingleCampus} />
             <Route exact path="/students" component={StudentList} />
             <Route path="/students/:id" component={SingleStudent} />
+            <Route path="/new-campus" component={NewCampusEntry} />
             <Redirect to="/" />
           </Switch>
         </BrowserRouter>
