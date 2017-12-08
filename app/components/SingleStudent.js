@@ -2,7 +2,7 @@ import React from 'react';
 import store from '../store';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { updateStudent, updateStudentOnBackend } from '../reducers';
+import { updateStudent, updateStudentOnBackend, updateStudentArr } from '../reducers';
 
 function SingleStudent(props) {
   console.log('Single student props are', props)
@@ -13,9 +13,11 @@ function SingleStudent(props) {
   const student = students.filter((singleStudent) => {
     return singleStudent.id === studentId;
   });
+  console.log('student is', student);
   const campus = campuses.filter((singleCampus) => {
-    return student[0].campusId === singleCampus.id;
+    return Number(student[0].campusId) === singleCampus.id;
   })
+  console.log('campus is now', campus)
    console.log('studentId is', studentId)
     return (
       <div>
@@ -46,6 +48,19 @@ function SingleStudent(props) {
             <label htmlFor="gpa">GPA</label>
             <input type="text" name="gpa" onChange={props.handleChange} value={props.gpa} />
           </div>
+          <div className="form-group">
+          <label htmlFor="campus">Change Campus:</label>
+            <select type="text" className="form-control" value={props.campusEntry} onChange={props.handleChange} name="campusId" >
+                { campuses.map(eachCampus => {
+                  return (
+                  <option key={eachCampus.id} value={eachCampus.id}>
+                    {eachCampus.name}
+                  </option>
+                  )
+                })
+              }
+            </select>
+      </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>
@@ -60,7 +75,8 @@ function mapStateToProps(state){
     lastName: state.lastName,
     email: state.email,
     gpa: state.gpa,
-    campusEntry: state.campusEntry
+    campusEntry: state.campusEntry,
+    campusId: state.campusId
   }
 }
 
@@ -78,6 +94,7 @@ function mapDispatchToProps(dispatch, ownProps){
       event.preventDefault();
       const studentId = Number(ownProps.match.params.id);
       console.log('ownProps are ', ownProps)
+      const campusId = event.target.campusId.value;
       const firstName = event.target.firstName.value;
       const lastName = event.target.lastName.value;
       const email = event.target.email.value;
@@ -87,12 +104,15 @@ function mapDispatchToProps(dispatch, ownProps){
         firstName,
         lastName,
         email,
-        gpa
+        gpa,
+        campusId
       }
       console.log('event.target submit handler are ', event.target)
       console.log('student obj is ', studentObj)
-      const action = updateStudentOnBackend(studentObj)
-      dispatch(action)
+      const action1 = updateStudentOnBackend(studentObj, ownProps.history)
+      dispatch(action1)
+      const action2 = updateStudentArr(studentObj);
+      dispatch(action2);
     }
   }
 }

@@ -5,6 +5,7 @@ import axios from 'axios';
 const GET_STUDENTS = 'GET_STUDENTS';
 const GET_STUDENT = 'GET_STUDENT';
 const DELETE_STUDENT = 'DELETE_STUDENT';
+const UPDATE_STUDENT_ARR = 'UPDATE_STUDENT_ARR';
 
 //ACTION CREATORS
 
@@ -20,6 +21,11 @@ export function getStudent (student) {
 
 export function deleteStudent (studentId) {
   const action = { type: DELETE_STUDENT, studentId };
+  return action;
+}
+
+export function updateStudentArr (studentObj) {
+  const action = { type: UPDATE_STUDENT_ARR, studentObj };
   return action;
 }
 
@@ -74,6 +80,11 @@ export default function reducer (state = [], action) {
     return action.students
     case GET_STUDENT:
     return [...state, action.student]
+    case UPDATE_STUDENT_ARR:
+    return state.map(student => {
+      if (+student.id === +action.studentObj.id) return action.studentObj
+      return student
+    })
     default:
       return state;
   }

@@ -19,8 +19,7 @@ export function updateStudentOnBackend(studentObj, history) {
       .then(updatedStudent => {
         const action = updateStudent(updatedStudent);
         dispatch(action);
-        console.log('updated student is', updatedStudent)
-        history.push(`/students/${updatedStudent.student.id}`)
+        history.push(`/students/${studentObj.id}`)
       })
       .catch(console.error.bind(console));
   }

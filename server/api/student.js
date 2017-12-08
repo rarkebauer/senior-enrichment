@@ -67,9 +67,7 @@ router.put('/:id', (req, res, next) => {
       id: req.params.id
     }
   }).then(foundStudent => {
-    console.log('found student is', foundStudent)
     const updatedStudent = foundStudent.update(req.body).save()
-    console.log(updatedStudent)
     return updatedStudent
   }).then(student => {
     const response = {
