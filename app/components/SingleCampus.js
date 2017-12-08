@@ -5,16 +5,19 @@ import { Link } from 'react-router-dom';
 
 function SingleCampus(props) {
   console.log('SingleCampus props are', props)
-  const campuses = props.campuses;
   const campusId = Number(props.match.params.id);
   const students = props.students.filter((student) => {
     return student.campusId === campusId;
   });
+  const campus = props.campuses.filter((singleCampus) => {
+    return singleCampus.id === campusId;
+  })
   console.log('campusId is', campusId)
     return (
       <div>
-        <h2>{campuses[campusId - 1].name}</h2>
-        <p>{campuses[campusId - 1].description}</p>
+        {/* <h2>{campuses[campusId - 1].name}</h2> */}
+        <h2>{campus[0].name}</h2>
+        <p>{campus[0].description}</p>
         <h3>Students</h3>
         <ul>
           {students.map((student) => {

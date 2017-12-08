@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const GET_STUDENTS = 'GET_STUDENTS';
 const GET_STUDENT = 'GET_STUDENT';
+const DELETE_STUDENT = 'DELETE_STUDENT';
 
 //ACTION CREATORS
 
@@ -14,6 +15,11 @@ export function getStudents (students) {
 
 export function getStudent (student) {
   const action = { type: GET_STUDENT, student };
+  return action;
+}
+
+export function deleteStudent (studentId) {
+  const action = { type: DELETE_STUDENT, studentId };
   return action;
 }
 
@@ -36,14 +42,29 @@ export function postStudent(first, last, email, gpa, campusId, history) {
     lastName: last,
     email,
     gpa,
-    campusId}
+    campusId
+  }
   return function thunk (dispatch) {
     return axios.post('/api/student', student)
       .then(res => res.data)
       .then(newStudent => {
         const action = getStudent(newStudent);
         dispatch(action);
+        history.push(`/students/${newStudent.id}`)
       });
+  }
+}
+
+export function deleteStudentOnBackend(studentId, history) {
+  return function thunk (dispatch) {
+    return axios.delete(`/api/student/${studentId}`)
+      .then(res => res.data)
+      .then(deletedStudent => {
+        console.log('deleted', deletedStudent)
+        const action = deleteStudent(studentId);
+        dispatch(action);
+        history.push(`/students`)
+      })
   }
 }
 
@@ -52,7 +73,7 @@ export default function reducer (state = [], action) {
     case GET_STUDENTS:
     return action.students
     case GET_STUDENT:
-    return action.student
+    return [...state, action.student]
     default:
       return state;
   }

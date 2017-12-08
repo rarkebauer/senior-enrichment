@@ -24,6 +24,7 @@ function SingleStudent(props) {
          }</h3>
          <p>Email: {student[0].email}</p>
          <p>GPA: {student[0].gpa}</p>
+        <div><Link to="/students">See All Students</Link></div>
         <div><Link to="/">Go Home</Link></div>
       </div>
     )

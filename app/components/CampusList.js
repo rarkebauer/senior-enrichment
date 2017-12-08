@@ -1,7 +1,8 @@
 import React from 'react';
-import store, { deleteCampus }  from '../store';
+import store from '../store';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deleteCampusOnBackend, fetchCampuses } from '../reducers'
 
 function CampusList(props) {
   console.log('campusList props are', props)
@@ -14,7 +15,7 @@ function CampusList(props) {
             return (
              <li key={campus.id}>
                <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
-              <button onClick={props.deleteHandler} id={campus.id}>Delete this campus</button>
+              <button onClick={props.deleteHandler} id={campus.id} key={campus.id}>Delete this campus</button>
              </li>
             )
           })
@@ -33,15 +34,16 @@ function mapStateToProps(state){
   }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch, ownProps){
   return {
     deleteHandler(event) {
       event.preventDefault();
       console.log('in deleteHandler event.target.id', event.target.id)
       const campusId = event.target.id;
       console.log('campusId is', campusId)
-      const action = deleteCampus(campusId);
+      const action = deleteCampusOnBackend(campusId, ownProps.history);
       dispatch(action);
+      fetchCampuses();
     }
   }
 }

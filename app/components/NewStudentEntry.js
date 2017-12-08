@@ -96,7 +96,6 @@ function mapDispatchToProps(dispatch, ownProps) {
       const campusId = Number(event.target.campusId.value);
       const action = postStudent(first, last, email, gpa, campusId, ownProps.history);
       dispatch(action);
-      dispatch(writeStudentFirst({first: ''})) //???????????????? why is it not clearing
     }
   }
 }

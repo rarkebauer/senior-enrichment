@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const GET_CAMPUS = 'GET_CAMPUS';
+const DELETE_CAMPUS = 'DELETE_CAMPUS';
 
 //ACTION CREATORS
 
@@ -14,7 +15,12 @@ export function getCampuses (campuses) {
 
 export function getCampus (campus) {
   const action = { type: GET_CAMPUS, campus };
-  return action
+  return action;
+}
+
+export function deleteCampus(campusId) {
+  const action = { type: DELETE_CAMPUS, campusId };
+  return action;
 }
 
 //THUNK CREATORS
@@ -43,12 +49,14 @@ export function postCampus(name, description, history) {
   }
 }
 
-export function deleteCampus(campusId) {
+export function deleteCampusOnBackend(campusId, history) {
   return function thunk (dispatch) {
-    return axios.remove(`/api/campus/${campusId}`)
+    return axios.delete(`/api/campus/${campusId}`)
       .then(res => res.data)
       .then(deletedCampus => {
         console.log('deleted', deletedCampus)
+        const action = deleteCampus(campusId);
+        dispatch(action);
         history.push(`/campuses`)
       })
   }
@@ -60,6 +68,10 @@ export default function reducer (state = [], action) {
     return action.campuses
     case GET_CAMPUS:
     return [...state, action.campus];
+    case DELETE_CAMPUS:
+    return state.filter(campus => {
+      return campus.id !== action.campusId;
+    })
     default:
       return state;
   }
