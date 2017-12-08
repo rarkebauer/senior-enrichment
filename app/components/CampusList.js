@@ -19,6 +19,7 @@ function CampusList(props) {
           })
         }
         </ul>
+        <div><Link to="/new-campus">Create a new campus</Link></div>
         <div><Link to="/">Go Home</Link></div>
       </div>
     )

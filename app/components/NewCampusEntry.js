@@ -40,7 +40,8 @@ function mapDispatchToProps(dispatch, ownProps) {
     submitHandler(event) {
       event.preventDefault();
       const name = event.target.campusName.value
-      const action = postCampus({name}, ownProps.history);
+      const description = event.target.campusDescription.value
+      const action = postCampus(name, description, ownProps.history);
       dispatch(action);
       dispatch(writeCampusTitle(''));
     }

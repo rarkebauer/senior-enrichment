@@ -30,8 +30,8 @@ export function fetchCampuses () {
   }
 }
 
-export function postCampus(campus, history) {
-
+export function postCampus(name, description, history) {
+  const campus = {name, description}
   return function thunk (dispatch) {
     return axios.post('/api/campus', campus)
       .then(res => res.data)

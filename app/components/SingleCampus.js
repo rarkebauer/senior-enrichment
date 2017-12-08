@@ -25,6 +25,7 @@ function SingleCampus(props) {
              )
           })}
         </ul>
+        <div><Link to="/campuses">Go to all Campuses</Link></div>
         <div><Link to="/">Go Home</Link></div>
       </div>
     )
