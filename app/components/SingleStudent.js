@@ -27,9 +27,9 @@ function SingleStudent(props) {
          }</h3>
          <p>Email: {student[0].email}</p>
          <p>GPA: {student[0].gpa}</p>
-        <div><Link to="/students">See All Students</Link></div>
-        <div><Link to="/">Go Home</Link></div>
-
+        <Link to="/students"><button className="btn btn-success">See All Students</button></Link><br />
+        <Link to="/"><button className="btn btn-warning">Go Home</button></Link>
+        <h2>Edit student information</h2>
         <form onSubmit={props.submitHandler}>
         <div className="form-group" name="studentId" value={studentId} />
           <div className="form-group">

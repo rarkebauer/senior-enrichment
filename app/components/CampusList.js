@@ -35,8 +35,8 @@ function CampusList(props) {
           })
         }
         </tbody>
-        <button className="btn btn-success"><Link to="/new-campus">Create a new campus</Link></button><br />
-        <button className="btn btn-warning"><Link to="/">Go Home</Link></button>
+        <Link to="/new-campus"><button className="btn btn-success">Create a new campus</button></Link><br />
+        <Link to="/"><button className="btn btn-warning">Go Home</button></Link>
       </div>
     )
 }

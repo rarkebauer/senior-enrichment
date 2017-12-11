@@ -10,17 +10,6 @@ function StudentList(props) {
     return (
       <div>
         <h3>Students</h3>
-        {/* <ul>
-          { students.map(student => {
-            return (
-             <li key={student.id}>
-             <Link to={`/students/${student.id}`}>{student.fullName}</Link>
-             <button onClick={props.deleteHandler} id={student.id} key={student.id}>Delete this student</button>
-             </li>
-            )
-          })
-        }
-        </ul> */}
         <tbody>
           { students.map(student => {
             return (
@@ -35,8 +24,8 @@ function StudentList(props) {
           })
         }
         </tbody>
-        <button className="btn btn-success"><Link to="/new-student">Create a new student</Link></button><br />
-        <button className="btn btn-warning"><Link to="/">Go Home</Link></button>
+        <Link to="/new-student"><button className="btn btn-success">Create a new student</button></Link><br />
+        <Link to="/"><button className="btn btn-warning">Go Home</button></Link>
       </div>
     )
 }

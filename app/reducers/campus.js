@@ -5,6 +5,7 @@ import axios from 'axios';
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const GET_CAMPUS = 'GET_CAMPUS';
 const DELETE_CAMPUS = 'DELETE_CAMPUS';
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
 
 //ACTION CREATORS
 
@@ -20,6 +21,11 @@ export function getCampus (campus) {
 
 export function deleteCampus(campusId) {
   const action = { type: DELETE_CAMPUS, campusId };
+  return action;
+}
+
+export function updateCampus(updatedCampus){
+  const action = { type: UPDATE_CAMPUS, updatedCampus };
   return action;
 }
 
@@ -49,6 +55,19 @@ export function postCampus(name, description, history) {
   }
 }
 
+export function updateCampusOnBackend(name, description, campusId, history) {
+  const campus = {name, description}
+  return function thunk (dispatch) {
+    return axios.put(`/api/campus/${campusId}`, campus)
+      .then(res => res.data)
+      .then(updatedCampus => {
+        const action = updateCampus(updatedCampus);
+        dispatch(action);
+        history.push(`/campuses`)
+      });
+  }
+}
+
 export function deleteCampusOnBackend(campusId, history) {
   return function thunk (dispatch) {
     return axios.delete(`/api/campus/${campusId}`)
@@ -65,14 +84,25 @@ export function deleteCampusOnBackend(campusId, history) {
 export default function reducer (state = [], action) {
   switch (action.type){
     case GET_CAMPUSES:
-    return action.campuses
+      return action.campuses
     case GET_CAMPUS:
-    return [...state, action.campus];
+      return [...state, action.campus];
     case DELETE_CAMPUS:
-    return state.filter(campus => {
-      return campus.id !== action.campusId;
-    })
+      return state.filter(campus => {
+        return campus.id !== action.campusId;
+      })
+    case UPDATE_CAMPUS:
+      return state.map(campus => {
+        if (+campus.id === +action.updatedCampus.id) return action.updatedCampus
+        return campus
+      })
     default:
       return state;
   }
 }
+
+// case UPDATE_HIPPO:
+// return initialState.map(hippo => {
+//   if (+hippo.id === +action.hippo.id) return action.hippo
+//   return hippo
+// })

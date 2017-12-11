@@ -42,6 +42,20 @@ router.delete('/:id', (req, res, next) => {
   })
 })
 
+router.put('/:id', (req, res, next) => {
+  Campus.findById(req.params.id)
+  .then(foundCampus => {
+    foundCampus.update(req.body)
+  }).then(campus => {
+    const response = {
+          message: 'Updated successfully',
+          campus
+        }
+    res.json(response)
+  })
+  .catch(next)
+})
+
 //remove a student from a campus by studentId
 
 //!!!!!!!!!!!!! finish making this work!!!!!!!!!!
