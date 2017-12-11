@@ -89,7 +89,7 @@ export default function reducer (state = [], action) {
       return [...state, action.campus];
     case DELETE_CAMPUS:
       return state.filter(campus => {
-        return campus.id !== action.campusId;
+        return +campus.id !== +action.campusId;
       })
     case UPDATE_CAMPUS:
       return state.map(campus => {
@@ -101,8 +101,3 @@ export default function reducer (state = [], action) {
   }
 }
 
-// case UPDATE_HIPPO:
-// return initialState.map(hippo => {
-//   if (+hippo.id === +action.hippo.id) return action.hippo
-//   return hippo
-// })

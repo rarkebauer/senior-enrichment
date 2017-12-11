@@ -56,43 +56,6 @@ router.put('/:id', (req, res, next) => {
   .catch(next)
 })
 
-//remove a student from a campus by studentId
-
-//!!!!!!!!!!!!! finish making this work!!!!!!!!!!
-
-// router.put('/:campusId/student/:studentId', (req, res, next) => {
-//   Campus.findOne({
-//     where: {
-//       id: req.params.campusId
-//     },
-//     include: [{all: true}] //or [Student]
-//   }).then(foundCampus => {
-//     console.log(foundCampus)
-//     //foundCampus.update(req.body)
-//     foundCampus.findOne({
-//       where: {
-//         id: req.params.studentId
-//       }
-//     })
-    ///console.log(Student.dataValues) or is it
-    //use update method from sequelize
-    //foundCampus.Student.dataValues
-//     //find student by id and then update the student with req.body
-//   })
-//   .then(foundStudent => {
-//     foundStudent.destroy();
-//   })
-//   .then(campus => {
-//     const response = {
-//           message: 'Updated successfully',
-//           campus: campus
-//         }
-//     res.json(response)
-//   })
-//   .catch(next)
-// })
-
-
 module.exports = router;
 
 /*

@@ -77,11 +77,15 @@ export function deleteStudentOnBackend(studentId, history) {
 export default function reducer (state = [], action) {
   switch (action.type){
     case GET_STUDENTS:
-    return action.students
+      return action.students
     case GET_STUDENT:
-    return [...state, action.student]
+      return [...state, action.student]
+    case DELETE_STUDENT:
+    return state.filter(student => {
+      return +student.id !== +action.studentId;
+    })
     case UPDATE_STUDENT_ARR:
-    return state.map(student => {
+      return state.map(student => {
       if (+student.id === +action.studentObj.id) return action.studentObj
       return student
     })

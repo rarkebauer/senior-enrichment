@@ -40,8 +40,8 @@ function NewStudentEntry (props) {
         </select>
       </div>
       <button type="submit" className="btn btn-primary">Submit</button>
-    </form>
-    <Link to="/students"><button className="btn btn-success">Go To Student List</button></Link>
+    </form> <br />
+    <Link to="/students"><button className="btn btn-success">Go To Student List</button></Link> <br />
     <Link to="/"><button className="btn btn-warning">Go Home</button></Link>
   </div>
   );

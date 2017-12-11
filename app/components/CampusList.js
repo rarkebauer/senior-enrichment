@@ -10,17 +10,6 @@ function CampusList(props) {
     return (
       <div>
         <h3>Campuses</h3>
-        {/* <ul>
-          { campuses.map(campus => {
-            return (
-             <li key={campus.id}>
-               <Link to={`/campuses/${campus.id}`}>{campus.name}</Link>
-              <button onClick={props.deleteHandler} id={campus.id} key={campus.id} className="btn btn-danger">Delete this</button>
-             </li>
-            )
-          })
-        }
-        </ul> */}
         <tbody>
           { campuses.map(campus => {
             return (

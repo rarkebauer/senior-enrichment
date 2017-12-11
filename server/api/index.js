@@ -11,6 +11,8 @@ const campus = require('./campus')
 apiRouter.use('/student', student);
 apiRouter.use('/campus', campus);
 
+apiRouter.get('/steamedhams', (req, res) => res.redirect('https://www.youtube.com/watch?v=-KNkn5fVBmE&index=8'))
+
 apiRouter.get('/hello', (req, res) => res.send({hello: 'world'}))
 
 
