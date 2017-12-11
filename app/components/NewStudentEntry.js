@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import store, { writeStudentFirst, writeStudentLast, writeStudentEmail, writeStudentGpa, writeStudentCampus, postStudent } from '../reducers';
 
 
-function NewCampusEntry (props) {
+function NewStudentEntry (props) {
   console.log('props on newstudententry are', props)
   const campuses = props.campuses;
   return (
@@ -41,8 +41,8 @@ function NewCampusEntry (props) {
       </div>
       <button type="submit" className="btn btn-primary">Submit</button>
     </form>
-    <div><Link to="/students">Go To Student List</Link></div>
-    <div><Link to="/">Go Home</Link></div>
+    <Link to="/students"><button className="btn btn-success">Go To Student List</button></Link>
+    <Link to="/"><button className="btn btn-warning">Go Home</button></Link>
   </div>
   );
 }
@@ -101,5 +101,5 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 /** Write your `connect` component below! **/
-const newCampusEntryContainer = connect(mapStateToProps, mapDispatchToProps)(NewCampusEntry)
-export default newCampusEntryContainer;
+const newStudentEntryContainer = connect(mapStateToProps, mapDispatchToProps)(NewStudentEntry)
+export default newStudentEntryContainer;

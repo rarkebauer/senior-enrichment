@@ -2,7 +2,8 @@ import React from 'react';
 import store from '../store';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { writeCampusTitle, writeCampusDescription, updateCampusOnBackend } from '../reducers';
+import { writeCampusTitle, writeCampusDescription, updateCampusOnBackend, deleteStudentOnBackend, fetchStudents } from '../reducers';
+import NewStudentEntry from './NewStudentEntry';
 
 function SingleCampus(props) {
   console.log('SingleCampus props are', props)
@@ -18,18 +19,26 @@ function SingleCampus(props) {
       <div>
         <h2>{campus[0].name}</h2>
         <p>{campus[0].description}</p>
-        <h3>Students</h3>
-        <ul>
-          {students.map((student) => {
-            return (
-              <li key={student.id} value={props.campusId}>
-                <Link to={`/students/${student.id}`}>{student.fullName}</Link>
-              </li>
-             )
-          })}
-        </ul>
 
-        <h2>Edit Campus Information</h2>
+        <h3>Students</h3>
+        <tbody>
+          {
+            students.map(student => {
+              return (
+                <tr key={student.id}>
+                  <td>
+                    <Link to={`/students/${student.id}`}>{student.fullName}</Link>
+                  </td>
+                  <td>
+                    <button onClick={props.deleteHandler} id={student.id} key={student.id} className="btn btn-danger">x</button>
+                  </td>
+                </tr>
+              )
+            })
+          }
+        </tbody>
+
+        <h3>Edit Campus Information</h3>
         <form onSubmit={props.submitHandler}>
           <div className="form-group">
             <label htmlFor="name">Campus Name</label>
@@ -42,8 +51,10 @@ function SingleCampus(props) {
         <button type="submit" className="btn btn-primary">Submit</button>
         </form>
 
-        <div><Link to="/campuses">Go to all Campuses</Link></div>
-        <div><Link to="/">Go Home</Link></div>
+        <h3>Add a New Student</h3>
+        <NewStudentEntry />
+
+        <Link to="/campuses"><button className="btn btn-info">Go to all Campuses</button></Link>
       </div>
     )
 }
@@ -79,6 +90,15 @@ function mapDispatchToProps(dispatch, ownProps){
       const campusId = Number(ownProps.match.params.id);
       const action = updateCampusOnBackend(name, description, campusId, ownProps.history);
       dispatch(action);
+    },
+    deleteHandler(event) {
+      event.preventDefault();
+      console.log('in deleteHandler event.target.id', event.target.id)
+      const campusId = event.target.id;
+      console.log('campusId is', campusId)
+      const action = deleteStudentOnBackend(campusId, ownProps.history);
+      dispatch(action);
+      fetchStudents();
     }
   }
 }
