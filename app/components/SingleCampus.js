@@ -72,20 +72,17 @@ function mapDispatchToProps(dispatch, ownProps){
   return {
     handleTitleChange(event){
       const campusTitle = event.target.value;
-      console.log(campusTitle)
       const action = writeCampusTitle(campusTitle)
       dispatch(action)
     },
     handleDescriptionChange(event){
       const campusDescription = event.target.value;
-      console.log(campusDescription)
       const action = writeCampusDescription(campusDescription)
       dispatch(action)
     },
     submitHandler(event){
       event.preventDefault();
       const name = event.target.name.value;
-      console.log('event.target.name is ', name)
       const description = event.target.description.value;
       const campusId = Number(ownProps.match.params.id);
       const action = updateCampusOnBackend(name, description, campusId, ownProps.history);
@@ -93,12 +90,9 @@ function mapDispatchToProps(dispatch, ownProps){
     },
     deleteHandler(event) {
       event.preventDefault();
-      console.log('in deleteHandler event.target.id', event.target.id)
       const campusId = event.target.id;
-      console.log('campusId is', campusId)
       const action = deleteStudentOnBackend(campusId, ownProps.history);
       dispatch(action);
-      fetchStudents();
     }
   }
 }

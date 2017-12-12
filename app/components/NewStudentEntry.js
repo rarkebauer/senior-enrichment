@@ -28,7 +28,7 @@ function NewStudentEntry (props) {
     </div>
     <div className="form-group">
       <label htmlFor="campus">Campus list:</label>
-        <select type="text" className="form-control" value={props.campusEntry} onChange={props.handleCampusChange} name="campusId" >
+        <select type="text" className="form-control dropdown-toggle" value={props.campusEntry} onChange={props.handleCampusChange} name="campusId" >
           { campuses.map(campus => {
             return (
             <option key={campus.id} value={campus.id}>

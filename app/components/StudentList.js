@@ -41,9 +41,7 @@ function mapDispatchToProps(dispatch, ownProps){
   return {
     deleteHandler(event) {
       event.preventDefault();
-      console.log('in deleteHandler event.target.id', event.target.id)
       const campusId = event.target.id;
-      console.log('campusId is', campusId)
       const action = deleteStudentOnBackend(campusId, ownProps.history);
       dispatch(action);
       fetchStudents();
